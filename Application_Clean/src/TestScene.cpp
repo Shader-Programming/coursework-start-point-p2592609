@@ -2,7 +2,7 @@
 
 TestScene::TestScene(GLFWwindow* window, std::shared_ptr<InputHandler> H): Scene(window, H){
 		// Shaders
-	m_floorShader = std::make_shared<Shader>("..\\shaders\\floorVert.glsl", "..\\shaders\\floorFrag.glsl");
+		m_floorShader = std::make_shared<Shader>("..\\shaders\\floorVert.glsl", "..\\shaders\\floorFrag.glsl");
 		// Camera & Input
 		m_camera = std::make_shared<FirstPersonCamera>(glm::vec3(0,20,0));   
 		m_camera->attachHandler(window, H);
@@ -11,6 +11,8 @@ TestScene::TestScene(GLFWwindow* window, std::shared_ptr<InputHandler> H): Scene
 
 		//Terrain/ Plane
 		m_terrain = std::make_shared<Terrain>();
+
+		m_skyBox = std::make_shared<SkyBox>();
 }
 
 
@@ -46,6 +48,11 @@ void TestScene::processInput(float dt)
 
 void TestScene::render()
 {
+	if (guiVals.showWireFrame) glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	else                       glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+
+	m_skyBox->renderSkyBox(m_camera->getProjectionMatrix() * glm::mat4(glm::mat3(m_camera->getViewMatrix())));
+
 	//floor
 	// Scene Data - Lights, Camera
 	m_floorShader->use();
@@ -54,13 +61,15 @@ void TestScene::render()
 	m_floorShader->setMat4("model", glm::mat4(1.0f));
 	m_floorShader->setVec3("viewPos", m_camera->getPosition());
 	//
-	m_floorShader->setVec3("floorCol", glm::vec3(0.2, 0.9, 0.3));
+	m_floorShader->setVec3("floorCol", guiVals.floorCol);
 	m_floorShader->setVec3("lightDirection", guiVals.lightDir);
+	m_floorShader->setVec3("lightColour", guiVals.lightCol);
 
+	
 
 	//draw
 	glBindVertexArray(m_terrain->getVAO());
-	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 	glDrawArrays(GL_TRIANGLES, 0, m_terrain->getSize());
 }
 
