@@ -16,6 +16,10 @@ public:
 	inline std::vector<Mesh>& getModel() { return m_meshes; }
 	void renderModel(std::shared_ptr<Shader>& shader);
 
+	void rotate(float angle, glm::vec3 axis);
+	void scale(float scaleFactor, glm::vec3 axis);
+	void translate(glm::vec3 translation);
+
 private:
 
 

@@ -27,7 +27,7 @@ void Model::renderModel(std::shared_ptr<Shader>& shader)
 {
 	shader->use();
 
-	//shader->setMat4("model", m_model); // transform matrix
+	shader->setMat4("Model", m_model); // transform matrix
 
 	// bind textures - you could move this to a function?
 	//diffuse
@@ -45,10 +45,25 @@ void Model::renderModel(std::shared_ptr<Shader>& shader)
 	glBindTexture(GL_TEXTURE_2D, m_textures[2]->getID());
 	shader->setInt("normalTexture", 2);
 
-
+	shader->setFloat("shine", 1);
 
 	// loop through each mesh and draw or in our case, for now, only one mesh so draw first one:
 	m_meshes[0].drawMesh();
+}
+
+void Model::rotate(float angle, glm::vec3 axis)
+{
+	m_model = glm::rotate(m_model, angle, axis);
+}
+
+void Model::scale(float scaleFactor, glm::vec3 axis)
+{
+	m_model = glm::scale(m_model, axis);
+}
+
+void Model::translate(glm::vec3 translation)
+{
+	m_model = glm::translate(m_model, translation);
 }
 
 

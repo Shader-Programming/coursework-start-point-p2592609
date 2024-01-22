@@ -3,9 +3,9 @@
 ///////////////////////// INS OUTS
 out vec4 FragColor;
 
-in vec2 UV ;
-in vec3 normal ;
-in vec3 posInWS ;
+in vec2 gUV ;
+in vec3 gNormal ;
+in vec3 gPosInWS ;
 
 
 ///////////////////////// UNIFORMS
@@ -30,8 +30,8 @@ vec3 lightDir ;
 
 void main()
 {    	
-    n = normalize(normal) ;
-    viewDir = normalize(viewPos - posInWS);
+    n = normalize(gNormal) ;
+    viewDir = normalize(viewPos - gPosInWS);
     lightDir = -normalize(lightDirection) ;
     lightDir.y = max(lightDir.y, 0.0) ; // Gui slider goes from [-1,1], direction light can only go from [0,1]
 

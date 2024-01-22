@@ -2,7 +2,7 @@
 
 TestScene::TestScene(GLFWwindow* window, std::shared_ptr<InputHandler> H): Scene(window, H){
 		// Shaders
-		m_floorShader = std::make_shared<Shader>("..\\shaders\\floorVert.glsl", "..\\shaders\\floorFrag.glsl");
+		m_floorShader = std::make_shared<Shader>("..\\shaders\\floorVert.glsl", "..\\shaders\\floorFrag.glsl", "..\\shaders\\floorGeo.glsl");
 		// Camera & Input
 		m_camera = std::make_shared<FirstPersonCamera>(glm::vec3(0,20,0));   
 		m_camera->attachHandler(window, H);
@@ -13,6 +13,14 @@ TestScene::TestScene(GLFWwindow* window, std::shared_ptr<InputHandler> H): Scene
 		m_terrain = std::make_shared<Terrain>();
 
 		m_skyBox = std::make_shared<SkyBox>();
+
+		m_modelLoader = std::make_unique<ModelLoader>();
+		m_vampire = m_modelLoader->getModel("..\\Resources\\Models\\Vampire\\vampire.obj");
+
+		m_modelShader = std::make_shared<Shader>("..\\shaders\\modelVertex.glsl", "..\\shaders\\modelFrag.glsl");
+
+
+
 }
 
 
@@ -26,6 +34,7 @@ void TestScene::update(float dt)
 {	
 	processInput(dt);
 	render();		
+	m_vampire->rotate(dt, glm::vec3(0.0f, 1.0f, 0.0f));
 	m_gui->newGuiFrame();
 	m_gui->drawGui();
 }
@@ -53,6 +62,15 @@ void TestScene::render()
 
 	m_skyBox->renderSkyBox(m_camera->getProjectionMatrix() * glm::mat4(glm::mat3(m_camera->getViewMatrix())));
 
+	//model
+	m_modelShader->use();
+	m_modelShader->setMat4("Projection", m_camera->getProjectionMatrix());
+	m_modelShader->setMat4("View", m_camera->getViewMatrix());
+	m_modelShader->setVec3("viewPos", m_camera->getPosition());
+	m_modelShader->setVec3("lightDirection", guiVals.lightDir);
+	m_modelShader->setVec3("lightColour", guiVals.lightCol);
+	m_vampire->renderModel(m_modelShader);
+
 	//floor
 	// Scene Data - Lights, Camera
 	m_floorShader->use();
@@ -65,12 +83,13 @@ void TestScene::render()
 	m_floorShader->setVec3("lightDirection", guiVals.lightDir);
 	m_floorShader->setVec3("lightColour", guiVals.lightCol);
 
-	
 
+	
 	//draw
 	glBindVertexArray(m_terrain->getVAO());
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 	glDrawArrays(GL_TRIANGLES, 0, m_terrain->getSize());
+
 }
 
 

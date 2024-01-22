@@ -12,8 +12,8 @@ Terrain::Terrain(int widthIn, int heightIn, int stepSizeIn)
 }
 
 Terrain::Terrain() {
-	width = 50;
-	height = 50;
+	width = 10;
+	height = 10;
 	stepSize = 10;
 	makeVertices();
 	makeVAO();

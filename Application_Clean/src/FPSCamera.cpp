@@ -2,12 +2,12 @@
 
 
 
-FirstPersonCamera::FirstPersonCamera(glm::vec3 pos) : Camera(pos), m_speed(20.0f), m_sensitivity(0.025f)
+FirstPersonCamera::FirstPersonCamera(glm::vec3 pos) : Camera(pos), m_speed(50.0f), m_sensitivity(0.055f)
 {
 	m_zoom = 45.0;
 	m_yaw = -90.0f;
 	m_pitch = 0.0f;
-	m_pitchContrain = 89.0f;
+	m_pitchContrain = 189.0f;
 	updateCameraVectors();
 }
 

@@ -5,6 +5,7 @@
 #include "Texture.h"
 #include "Terrain.h"
 #include "SkyBox.h"
+#include "ModelLoader.h"
 
 
 class TestScene : public Scene {
@@ -26,8 +27,10 @@ private:
 
 	GuiVals guiVals;
 
-
-	
+	//Models
+	std::unique_ptr<ModelLoader> m_modelLoader;
+	std::shared_ptr<Model> m_vampire;
+	std::shared_ptr<Shader> m_modelShader;
 	
 
 };
