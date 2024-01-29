@@ -13,14 +13,14 @@ public:
 	Billboard();
 	unsigned int getVAO() { return m_VAO; }
 	Shader* m_shader;
-	void render(std::shared_ptr<Camera> camera);
+	void render(std::shared_ptr<Camera> camera, int scale);
 
 	void scale(int scaleFactor);
 	void translate(glm::vec3 translation);
 
 private:
 	void makeVAO();
-	unsigned int m_VAO;
+	unsigned int m_VAO, m_VBO;
 	Texture* m_billboardTexture;
 	glm::mat4 m_model;
 	float positions[15] = {

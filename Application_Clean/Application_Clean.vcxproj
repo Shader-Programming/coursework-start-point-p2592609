@@ -149,7 +149,9 @@
     <ClCompile Include="include\SkyBox.cpp" />
     <ClCompile Include="src\Billboard.cpp" />
     <ClCompile Include="src\EntryPoint.cpp" />
+    <ClCompile Include="src\FBOquad.cpp" />
     <ClCompile Include="src\FPSCamera.cpp" />
+    <ClCompile Include="src\FrameBuffer.cpp" />
     <ClCompile Include="src\glad.c" />
     <ClCompile Include="src\Gui.cpp" />
     <ClCompile Include="src\IMgui\imgui.cpp" />
@@ -173,7 +175,9 @@
   <ItemGroup>
     <ClInclude Include="include\Billboard.h" />
     <ClInclude Include="include\Camera.h" />
+    <ClInclude Include="include\FBOquad.h" />
     <ClInclude Include="include\FPSCamera.h" />
+    <ClInclude Include="include\FrameBuffer.h" />
     <ClInclude Include="include\GLFWinputCodes.h" />
     <ClInclude Include="include\Gui.h" />
     <ClInclude Include="include\IMGUI\imconfig.h" />

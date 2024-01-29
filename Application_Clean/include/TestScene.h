@@ -6,6 +6,7 @@
 #include "Terrain.h"
 #include "SkyBox.h"
 #include "ModelLoader.h"
+#include "Billboard.h"
 
 
 class TestScene : public Scene {
@@ -31,6 +32,8 @@ private:
 	std::unique_ptr<ModelLoader> m_modelLoader;
 	std::shared_ptr<Model> m_vampire;
 	std::shared_ptr<Shader> m_modelShader;
+
+	std::shared_ptr<Billboard> m_billboard;
 	
 
 };

@@ -2,8 +2,8 @@
 layout(triangles) in;
 layout(triangle_strip, max_vertices = 3) out;
 
-in vec2 UV[];
-in vec3 posInWS[];
+in vec2 teUV[];
+in vec3 teposInWS[];
 
 out vec2 gUV;
 out vec3 gNormal;

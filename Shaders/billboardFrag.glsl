@@ -2,7 +2,7 @@
 
 in vec2 uv;
 
-uniform smapler2D billboard;
+uniform sampler2D billboard;
 out vec4 FragColour;
 
 float threshold = 0.35;
@@ -11,5 +11,10 @@ void main()
 {
 	FragColour = texture(billboard, uv);
 
-	if(FragColour.r)
+	if (FragColour.r > threshold &&
+		FragColour.g > threshold &&
+		FragColour.b > threshold)
+	{
+		discard;
+	}
 }

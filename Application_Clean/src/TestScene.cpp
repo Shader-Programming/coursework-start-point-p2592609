@@ -2,7 +2,7 @@
 
 TestScene::TestScene(GLFWwindow* window, std::shared_ptr<InputHandler> H): Scene(window, H){
 		// Shaders
-		m_floorShader = std::make_shared<Shader>("..\\shaders\\floorVert.glsl", "..\\shaders\\floorFrag.glsl", "..\\shaders\\floorGeo.glsl");
+		m_floorShader = std::make_shared<Shader>("..\\shaders\\floorVert.glsl", "..\\shaders\\floorFrag.glsl", "..\\shaders\\floorGeo.glsl", "..\\shaders\\floorTCS.glsl", "..\\shaders\\floorTES.glsl");
 		// Camera & Input
 		m_camera = std::make_shared<FirstPersonCamera>(glm::vec3(0,20,0));   
 		m_camera->attachHandler(window, H);
@@ -19,7 +19,7 @@ TestScene::TestScene(GLFWwindow* window, std::shared_ptr<InputHandler> H): Scene
 
 		m_modelShader = std::make_shared<Shader>("..\\shaders\\modelVertex.glsl", "..\\shaders\\modelFrag.glsl");
 
-
+		m_billboard = std::make_shared<Billboard>();
 
 }
 
@@ -71,6 +71,8 @@ void TestScene::render()
 	m_modelShader->setVec3("lightColour", guiVals.lightCol);
 	m_vampire->renderModel(m_modelShader);
 
+	m_billboard->render(m_camera, guiVals.scale);
+
 	//floor
 	// Scene Data - Lights, Camera
 	m_floorShader->use();
@@ -82,13 +84,11 @@ void TestScene::render()
 	m_floorShader->setVec3("floorCol", guiVals.floorCol);
 	m_floorShader->setVec3("lightDirection", guiVals.lightDir);
 	m_floorShader->setVec3("lightColour", guiVals.lightCol);
-
-
 	
 	//draw
 	glBindVertexArray(m_terrain->getVAO());
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-	glDrawArrays(GL_TRIANGLES, 0, m_terrain->getSize());
+	glDrawArrays(GL_PATCHES, 0, m_terrain->getSize());
 
 }
 
