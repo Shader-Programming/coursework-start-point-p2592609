@@ -11,7 +11,9 @@ struct GuiVals {
 	glm::vec3 floorCol = glm::vec3(0.1f, 0.8f, 0.1f);
 	glm::vec3 lightCol = glm::vec3(1.f);
 	bool showWireFrame = false;
-	int scale = 1;
+	bool cdm = false;
+	float scale = 1.f;
+	float hmScale = 10.f;
 };
 
 class Gui {

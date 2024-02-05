@@ -1,5 +1,5 @@
 #include "Terrain.h"
-
+#include "stb_image.h"
 
 //Terrain constructors
 Terrain::Terrain(int widthIn, int heightIn, int stepSizeIn)
@@ -7,14 +7,17 @@ Terrain::Terrain(int widthIn, int heightIn, int stepSizeIn)
 	width = widthIn;
 	height = heightIn;
 	stepSize = stepSizeIn;
+	m_heightMapID = new Texture("..\\Resources\\heightMap.jpg");
 	makeVertices();
 	makeVAO();
+
 }
 
 Terrain::Terrain() {
 	width = 10;
 	height = 10;
 	stepSize = 10;
+	m_heightMapID = new Texture("..\\Resources\\heightMap.jpg");
 	makeVertices();
 	makeVAO();
 
@@ -43,6 +46,14 @@ void Terrain::makeVAO() {
 
 int Terrain::getSize() {
 	return m_vertices.size();
+}
+
+void Terrain::setHeightMap(std::shared_ptr<Shader> shader)
+{
+
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, m_heightMapID->getID());
+	shader->setInt("heightMap", 0);
 }
 
 
@@ -91,6 +102,19 @@ void Terrain::makeVertices() {
 			makeVertex(offSetX + stepSize, offSetZ + stepSize);  //f
 		}
 	}
+
+	//for (int x = 0; x < width - 1; x++) {
+	//	float  offSetX = x * stepSize;
+	//	for (int z = 0; z < height - 1; z++) {
+	//		float offSetZ = z * stepSize;
+	//		makeVertex(offSetX, offSetZ);  // a
+	//		makeVertex(offSetX, offSetZ + stepSize);  // b
+	//		makeVertex(offSetX + stepSize, offSetZ);   // c
+	//		makeVertex(offSetX + stepSize, offSetZ);  //d
+	//		makeVertex(offSetX, offSetZ + stepSize);  //e
+	//		makeVertex(offSetX + stepSize, offSetZ + stepSize);  //f
+	//	}
+	//}
 
 }
 

@@ -6,12 +6,13 @@ out vec4 FragColor;
 in vec2 gUV ;
 in vec3 gNormal ;
 in vec3 gPosInWS ;
-
+in vec3 cdmNorm;
 
 ///////////////////////// UNIFORMS
 uniform vec3 lightDirection ;
 uniform vec3 floorCol ;
 uniform vec3 viewPos ;
+uniform bool cdm;
 
 ///////////////////////// FUNCTIONS
 vec3 getDirectionalLight() ;
@@ -29,8 +30,15 @@ vec3 lightDir ;
 ///////////////////////// MAIN
 
 void main()
-{    	
-    n = normalize(gNormal) ;
+{   
+    if (cdm)
+    {
+        n = normalize(cdmNorm);
+    }
+    else if (!cdm)
+    {
+        n = normalize(gNormal);
+    }
     viewDir = normalize(viewPos - gPosInWS);
     lightDir = -normalize(lightDirection) ;
     lightDir.y = max(lightDir.y, 0.0) ; // Gui slider goes from [-1,1], direction light can only go from [0,1]

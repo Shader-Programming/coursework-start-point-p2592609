@@ -80,10 +80,15 @@ void TestScene::render()
 	m_floorShader->setMat4("view", m_camera->getViewMatrix());
 	m_floorShader->setMat4("model", glm::mat4(1.0f));
 	m_floorShader->setVec3("viewPos", m_camera->getPosition());
+	m_floorShader->setFloat("hmScale", guiVals.hmScale);
 	//
 	m_floorShader->setVec3("floorCol", guiVals.floorCol);
 	m_floorShader->setVec3("lightDirection", guiVals.lightDir);
 	m_floorShader->setVec3("lightColour", guiVals.lightCol);
+
+	m_floorShader->setBool("cdm", guiVals.cdm);
+
+	m_terrain->setHeightMap(m_floorShader);
 	
 	//draw
 	glBindVertexArray(m_terrain->getVAO());

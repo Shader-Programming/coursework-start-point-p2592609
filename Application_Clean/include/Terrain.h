@@ -6,6 +6,8 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <iostream>
+#include "Shader.h"
+#include "Texture.h"
 
 class Terrain
 {
@@ -15,7 +17,7 @@ public:
 	void makeVAO();
 	unsigned int getVAO() { return m_VAO; }
 	int getSize();
-
+	void setHeightMap(std::shared_ptr<Shader> shader);
 
 private:
 	std::vector<float> m_vertices;
@@ -26,4 +28,5 @@ private:
 	void makeVertices();
 	void makeVertex(int x, int z);
 	std::vector<float> getVertices();
+	Texture* m_heightMapID;
 };
