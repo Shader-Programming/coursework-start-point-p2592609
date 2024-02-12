@@ -35,7 +35,7 @@ void Gui::drawGui()
     ImGui::Text("FPS %.3f ms/frame (%.1f FPS)", ms, ImGui::GetIO().Framerate);  // display FPS and ms
     ImGui::Checkbox("WireFrame", &guiVals.showWireFrame);
     ImGui::Checkbox("CDM", &guiVals.cdm);
-    ImGui::DragFloat("Scale", &guiVals.scale);
+    ImGui::SliderFloat("Scale", &guiVals.scale, 0.f, 100.f);
     ImGui::SliderFloat3("Light Dir", (float*)&guiVals.lightDir, -1.0, 1.0);
     ImGui::ColorEdit3("Light Col", (float*)&guiVals.lightCol);
     ImGui::ColorEdit3("Floor Col", (float*)&guiVals.floorCol);

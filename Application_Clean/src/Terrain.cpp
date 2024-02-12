@@ -7,20 +7,23 @@ Terrain::Terrain(int widthIn, int heightIn, int stepSizeIn)
 	width = widthIn;
 	height = heightIn;
 	stepSize = stepSizeIn;
-	m_heightMapID = new Texture("..\\Resources\\heightMap.jpg");
-	makeVertices();
-	makeVAO();
-
+	init();
 }
 
 Terrain::Terrain() {
 	width = 10;
 	height = 10;
 	stepSize = 10;
+	init();
+}
+
+void Terrain::init()
+{
 	m_heightMapID = new Texture("..\\Resources\\heightMap.jpg");
+	m_grass = new Texture("..\\Resources\\Grass\\Grass_005_BaseColor.jpg");
+	m_rock = new Texture("..\\Resources\\Pebbles\\Pebbles_029_BaseColor.jpg");
 	makeVertices();
 	makeVAO();
-
 }
 
 void Terrain::makeVAO() {
@@ -53,7 +56,15 @@ void Terrain::setHeightMap(std::shared_ptr<Shader> shader)
 
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, m_heightMapID->getID());
+	
+	
 	shader->setInt("heightMap", 0);
+	glActiveTexture(GL_TEXTURE1);
+	glBindTexture(GL_TEXTURE_2D, m_grass->getID());
+	shader->setInt("grass", 1);
+	glActiveTexture(GL_TEXTURE2);
+	glBindTexture(GL_TEXTURE_2D, m_rock->getID());
+	shader->setInt("rock", 2);
 }
 
 

@@ -14,6 +14,7 @@ class Terrain
 public:
 	Terrain(int widthIn, int heightIn, int stepSizeIn);
 	Terrain();
+	void init();
 	void makeVAO();
 	unsigned int getVAO() { return m_VAO; }
 	int getSize();
@@ -29,4 +30,6 @@ private:
 	void makeVertex(int x, int z);
 	std::vector<float> getVertices();
 	Texture* m_heightMapID;
+	Texture* m_grass;
+	Texture* m_rock;
 };

@@ -60,6 +60,8 @@ void TestScene::render()
 	if (guiVals.showWireFrame) glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 	else                       glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
+	
+
 	m_skyBox->renderSkyBox(m_camera->getProjectionMatrix() * glm::mat4(glm::mat3(m_camera->getViewMatrix())));
 
 	//model

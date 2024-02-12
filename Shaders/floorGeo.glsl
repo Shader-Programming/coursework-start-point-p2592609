@@ -6,10 +6,12 @@ in vec2 teUV[];
 in vec3 tePosInWS[];
 in vec3 teNorm[];
 
+
 out vec2 gUV;
 out vec3 gNormal;
 out vec3 gPosInWS;
 out vec3 cdmNorm;
+
 
 vec3 getSurfaceNormal();
 
@@ -30,7 +32,7 @@ void main()
 
 vec3 getSurfaceNormal()
 {
-	vec3 a = vec3(gl_in[0].gl_Position) - vec3(gl_in[1].gl_Position);
-	vec3 b = vec3(gl_in[2].gl_Position) - vec3(gl_in[1].gl_Position);
+	vec3 a = tePosInWS[1] - tePosInWS[0];
+	vec3 b = tePosInWS[2] - tePosInWS[0];
 	return normalize(cross(a, b));
 }

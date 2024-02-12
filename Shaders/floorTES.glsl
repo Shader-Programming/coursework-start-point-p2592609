@@ -22,16 +22,15 @@ void main()
 {
 	tePosInWS = interpolate3D(tcPosInWS[0], tcPosInWS[1], tcPosInWS[2]);
 	teUV = interpolate2D(tcUV[0], tcUV[1], tcUV[2]);
-
 	float h = (texture(heightMap, teUV).r);
-	h = h*2.0 - 1.0;
+	//h = h*2.0 - 1.0;
 	tePosInWS.y = h * hmScale;
 	gl_Position = projection * view * model *vec4(tePosInWS, 1.0);
 
-	float right = (textureOffset(heightMap, teUV, ivec2(1, 0)).r) * hmScale;
-	float left = (textureOffset(heightMap, teUV, ivec2(-1, 0)).r) * hmScale;
-	float up = (textureOffset(heightMap, teUV, ivec2(0, -1)).r) * hmScale;
-	float down = (textureOffset(heightMap, teUV, ivec2(0, 1)).r) * hmScale;
+	float right = (textureOffset(heightMap, teUV, ivec2(5, 0)).r) * hmScale;
+	float left = (textureOffset(heightMap, teUV, ivec2(-5, 0)).r) * hmScale;
+	float up = (textureOffset(heightMap, teUV, ivec2(0, -5)).r) * hmScale;
+	float down = (textureOffset(heightMap, teUV, ivec2(0, 5)).r) * hmScale;
 
 	float lr = left - right;
 	float du = up - down;

@@ -8,18 +8,22 @@ in vec3 gNormal ;
 in vec3 gPosInWS ;
 in vec3 cdmNorm;
 
+
 ///////////////////////// UNIFORMS
 uniform vec3 lightDirection ;
 uniform vec3 floorCol ;
 uniform vec3 viewPos ;
 uniform bool cdm;
+uniform float hmScale;
+uniform sampler2D grass;
+uniform sampler2D rock;
 
 ///////////////////////// FUNCTIONS
 vec3 getDirectionalLight() ;
 
 ///////////////////////// VARS
 // constants for now, could be added to imGui?
-float ambientFactor = 0.5 ;
+float ambientFactor = 0.3 ;
 float shine = 16.0f ;
 float specularStrength = 0.3f ;
 vec3 lightColour = vec3(1.0f) ;
@@ -43,8 +47,14 @@ void main()
     lightDir = -normalize(lightDirection) ;
     lightDir.y = max(lightDir.y, 0.0) ; // Gui slider goes from [-1,1], direction light can only go from [0,1]
 
+    float mid = hmScale * 0.5;
 
+    vec3 col1 = texture(grass, gUV).rgb;
+    vec3 col2 = texture(rock, gUV).rgb;
+    vec3 col = mix(col1, col2, smoothstep(0.0, mid + mid * 0.5, gPosInWS.y));
+   
     vec3 result = getDirectionalLight() ;
+    result += col;
     FragColor = vec4(result, 1.0f);   
 }
 
