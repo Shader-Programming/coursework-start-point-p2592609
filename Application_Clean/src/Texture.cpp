@@ -17,6 +17,11 @@ Texture::Texture(const char* filePath) {
 
 }
 
+Texture::Texture(unsigned int width, unsigned int height, unsigned int channels)
+{
+	createTexture(width, height, channels, NULL);
+}
+
 Texture::~Texture() {
 	glDeleteTextures(1, &m_id);
 }

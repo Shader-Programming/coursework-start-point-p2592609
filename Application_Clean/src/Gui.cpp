@@ -33,6 +33,7 @@ void Gui::drawGui()
     float ms = 1000.0f / ImGui::GetIO().Framerate; ;  //milisecconds
     ImGui::Begin("IMAT3907");
     ImGui::Text("FPS %.3f ms/frame (%.1f FPS)", ms, ImGui::GetIO().Framerate);  // display FPS and ms
+    ImGui::Checkbox("Texture View", &guiVals.textureView);
     ImGui::Checkbox("WireFrame", &guiVals.showWireFrame);
     ImGui::Checkbox("CDM", &guiVals.cdm);
     ImGui::SliderFloat("Scale", &guiVals.scale, 0.f, 100.f);

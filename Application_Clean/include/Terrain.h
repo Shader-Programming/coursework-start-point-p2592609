@@ -19,6 +19,7 @@ public:
 	unsigned int getVAO() { return m_VAO; }
 	int getSize();
 	void setHeightMap(std::shared_ptr<Shader> shader);
+	unsigned int getHeightMap() { return m_heightMapID->getID(); }
 
 private:
 	std::vector<float> m_vertices;

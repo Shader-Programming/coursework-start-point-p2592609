@@ -1,18 +1,8 @@
 ﻿C:\Program Files\Microsoft Visual Studio\2022\Enterprise\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(1116,5): warning MSB8027: Two or more files with the name of imgui_impl_opengl3.cpp will produce outputs to the same location. This can lead to an incorrect build result.  The files involved are ..\Dependancies\include\ImGui\imgui_impl_opengl3.cpp, src\IMgui\imgui_impl_opengl3.cpp.
-  Terrain.cpp
-H:\Documents\Advance Shaders\Application_Clean\src\Terrain.cpp(51,24): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
-H:\Documents\Advance Shaders\Application_Clean\src\Terrain.cpp(105,18): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-H:\Documents\Advance Shaders\Application_Clean\src\Terrain.cpp(107,18): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-H:\Documents\Advance Shaders\Application_Clean\src\Terrain.cpp(108,24): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-H:\Documents\Advance Shaders\Application_Clean\src\Terrain.cpp(108,15): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-H:\Documents\Advance Shaders\Application_Clean\src\Terrain.cpp(109,32): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-H:\Documents\Advance Shaders\Application_Clean\src\Terrain.cpp(109,15): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-H:\Documents\Advance Shaders\Application_Clean\src\Terrain.cpp(110,35): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-H:\Documents\Advance Shaders\Application_Clean\src\Terrain.cpp(110,23): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-H:\Documents\Advance Shaders\Application_Clean\src\Terrain.cpp(111,35): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-H:\Documents\Advance Shaders\Application_Clean\src\Terrain.cpp(111,23): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-H:\Documents\Advance Shaders\Application_Clean\src\Terrain.cpp(112,32): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-H:\Documents\Advance Shaders\Application_Clean\src\Terrain.cpp(112,15): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-H:\Documents\Advance Shaders\Application_Clean\src\Terrain.cpp(113,43): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-H:\Documents\Advance Shaders\Application_Clean\src\Terrain.cpp(113,23): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+  TestScene.cpp
+H:\Documents\Advance Shaders\Application_Clean\include\InputHandler.h(67,30): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+H:\Documents\Advance Shaders\Application_Clean\include\InputHandler.h(68,31): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+H:\Documents\Advance Shaders\Application_Clean\src\TestScene.cpp(83,40): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+  Texture.cpp
+  Generating Code...
   Application_Clean.vcxproj -> H:\Documents\Advance Shaders\x64\Debug\Application_Clean.exe

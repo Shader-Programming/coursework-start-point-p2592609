@@ -4,6 +4,7 @@
 class Texture {
 public:
 	Texture(const char* filePath);
+	Texture(unsigned int width, unsigned int height, unsigned int channels);
 	~Texture();
 	inline unsigned int getID() { return m_id; }
 

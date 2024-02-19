@@ -21,6 +21,12 @@ TestScene::TestScene(GLFWwindow* window, std::shared_ptr<InputHandler> H): Scene
 
 		m_billboard = std::make_shared<Billboard>();
 
+		m_textureViewer = std::make_shared<TextureViewer>();
+
+		m_emptyTexture = std::make_shared<Texture>(SCR_WIDTH, SCR_HEIGHT, 4);
+
+		m_textureCompute = std::make_shared<Shader>("..\\Shaders\\compute.glsl");
+
 }
 
 
@@ -61,41 +67,51 @@ void TestScene::render()
 	else                       glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
 	
+	if (!guiVals.textureView)
+	{
+		m_skyBox->renderSkyBox(m_camera->getProjectionMatrix() * glm::mat4(glm::mat3(m_camera->getViewMatrix())));
 
-	m_skyBox->renderSkyBox(m_camera->getProjectionMatrix() * glm::mat4(glm::mat3(m_camera->getViewMatrix())));
+		//model
+		m_modelShader->use();
+		m_modelShader->setMat4("Projection", m_camera->getProjectionMatrix());
+		m_modelShader->setMat4("View", m_camera->getViewMatrix());
+		m_modelShader->setVec3("viewPos", m_camera->getPosition());
+		m_modelShader->setVec3("lightDirection", guiVals.lightDir);
+		m_modelShader->setVec3("lightColour", guiVals.lightCol);
+		m_vampire->renderModel(m_modelShader);
 
-	//model
-	m_modelShader->use();
-	m_modelShader->setMat4("Projection", m_camera->getProjectionMatrix());
-	m_modelShader->setMat4("View", m_camera->getViewMatrix());
-	m_modelShader->setVec3("viewPos", m_camera->getPosition());
-	m_modelShader->setVec3("lightDirection", guiVals.lightDir);
-	m_modelShader->setVec3("lightColour", guiVals.lightCol);
-	m_vampire->renderModel(m_modelShader);
+		m_billboard->render(m_camera, guiVals.scale);
 
-	m_billboard->render(m_camera, guiVals.scale);
+		//floor
+		// Scene Data - Lights, Camera
+		m_floorShader->use();
+		m_floorShader->setMat4("projection", m_camera->getProjectionMatrix());
+		m_floorShader->setMat4("view", m_camera->getViewMatrix());
+		m_floorShader->setMat4("model", glm::mat4(1.0f));
+		m_floorShader->setVec3("viewPos", m_camera->getPosition());
+		m_floorShader->setFloat("hmScale", guiVals.hmScale);
+		//
+		m_floorShader->setVec3("floorCol", guiVals.floorCol);
+		m_floorShader->setVec3("lightDirection", guiVals.lightDir);
+		m_floorShader->setVec3("lightColour", guiVals.lightCol);
 
-	//floor
-	// Scene Data - Lights, Camera
-	m_floorShader->use();
-	m_floorShader->setMat4("projection", m_camera->getProjectionMatrix());
-	m_floorShader->setMat4("view", m_camera->getViewMatrix());
-	m_floorShader->setMat4("model", glm::mat4(1.0f));
-	m_floorShader->setVec3("viewPos", m_camera->getPosition());
-	m_floorShader->setFloat("hmScale", guiVals.hmScale);
-	//
-	m_floorShader->setVec3("floorCol", guiVals.floorCol);
-	m_floorShader->setVec3("lightDirection", guiVals.lightDir);
-	m_floorShader->setVec3("lightColour", guiVals.lightCol);
+		m_floorShader->setBool("cdm", guiVals.cdm);
 
-	m_floorShader->setBool("cdm", guiVals.cdm);
+		m_terrain->setHeightMap(m_floorShader);
 
-	m_terrain->setHeightMap(m_floorShader);
-	
-	//draw
-	glBindVertexArray(m_terrain->getVAO());
-	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-	glDrawArrays(GL_PATCHES, 0, m_terrain->getSize());
+		//draw
+		glBindVertexArray(m_terrain->getVAO());
+		//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+		glDrawArrays(GL_PATCHES, 0, m_terrain->getSize());
+	}
+	else
+	{
+		m_textureCompute->use();
+		glBindImageTexture(0, m_emptyTexture->getID(), 0, GL_FALSE, 0, GL_WRITE_ONLY, GL_RGBA32F);
+		glDispatchCompute((GLuint)16, (GLuint)32, 1);
+		glMemoryBarrier(GL_SHADER_IMAGE_ACCESS_BARRIER_BIT);
+		m_textureViewer->drawColourTexture(m_emptyTexture->getID());
+	}
 
 }
 

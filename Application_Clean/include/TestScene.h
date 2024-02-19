@@ -7,6 +7,8 @@
 #include "SkyBox.h"
 #include "ModelLoader.h"
 #include "Billboard.h"
+#include "TextureViewer.h"
+
 
 
 class TestScene : public Scene {
@@ -34,6 +36,11 @@ private:
 	std::shared_ptr<Shader> m_modelShader;
 
 	std::shared_ptr<Billboard> m_billboard;
+
+	std::shared_ptr<TextureViewer> m_textureViewer;
+
+	std::shared_ptr<Texture> m_emptyTexture;
+	std::shared_ptr<Shader> m_textureCompute;
 	
 
 };
