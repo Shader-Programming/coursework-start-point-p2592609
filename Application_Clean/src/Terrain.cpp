@@ -19,7 +19,7 @@ Terrain::Terrain() {
 
 void Terrain::init()
 {
-	m_heightMapID = new Texture("..\\Resources\\heightMap.jpg");
+	m_heightMapID = std::make_shared<Texture>("..\\Resources\\heightMap.jpg");
 	m_grass = new Texture("..\\Resources\\Grass\\Grass_005_BaseColor.jpg");
 	m_rock = new Texture("..\\Resources\\Pebbles\\Pebbles_029_BaseColor.jpg");
 	makeVertices();
@@ -51,7 +51,7 @@ int Terrain::getSize() {
 	return m_vertices.size();
 }
 
-void Terrain::setHeightMap(std::shared_ptr<Shader> shader)
+void Terrain::setHeightMapUniform(std::shared_ptr<Shader> shader)
 {
 
 	glActiveTexture(GL_TEXTURE0);
@@ -65,6 +65,11 @@ void Terrain::setHeightMap(std::shared_ptr<Shader> shader)
 	glActiveTexture(GL_TEXTURE2);
 	glBindTexture(GL_TEXTURE_2D, m_rock->getID());
 	shader->setInt("rock", 2);
+}
+
+void Terrain::setHeightMap(std::shared_ptr<Texture> texture)
+{
+	m_heightMapID = texture;
 }
 
 

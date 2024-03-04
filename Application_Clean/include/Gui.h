@@ -12,10 +12,16 @@ struct GuiVals {
 	glm::vec3 lightCol = glm::vec3(1.f);
 	bool showWireFrame = false;
 	bool cdm = false;
-	bool textureView = false;
+	bool textureView = true;
 	float scale = 1.f;
 	float hmScale = 30.f;
-
+	float frequency = 1.f;
+	float amplitude = 1.f;
+	float persistence = 0.5f;
+	float lacunarity = 2.f;
+	int octaves = 3;
+	int noiseType = 0;
+	
 };
 
 class Gui {

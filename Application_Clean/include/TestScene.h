@@ -41,6 +41,7 @@ private:
 
 	std::shared_ptr<Texture> m_emptyTexture;
 	std::shared_ptr<Shader> m_textureCompute;
+	std::shared_ptr<Shader> m_noiseCompute;
 	
 
 };

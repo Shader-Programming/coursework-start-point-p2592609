@@ -188,5 +188,8 @@
     <ClInclude Include="include\TextureViewer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\ParticleSystem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -18,7 +18,8 @@ public:
 	void makeVAO();
 	unsigned int getVAO() { return m_VAO; }
 	int getSize();
-	void setHeightMap(std::shared_ptr<Shader> shader);
+	void setHeightMapUniform(std::shared_ptr<Shader> shader);
+	void setHeightMap(std::shared_ptr<Texture> texture);
 	unsigned int getHeightMap() { return m_heightMapID->getID(); }
 
 private:
@@ -30,7 +31,7 @@ private:
 	void makeVertices();
 	void makeVertex(int x, int z);
 	std::vector<float> getVertices();
-	Texture* m_heightMapID;
+	std::shared_ptr<Texture> m_heightMapID;
 	Texture* m_grass;
 	Texture* m_rock;
 };

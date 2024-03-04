@@ -176,6 +176,7 @@ Shader::Shader(const char* computePath)
 	glShaderSource(compute, 1, &cShaderCode, NULL);
 	glCompileShader(compute);
 	checkCompileErrors(compute, "COMPUTE");
+	std::cout << " loaded Compute" << std::endl;
 
 	// shader Program
 	ID = glCreateProgram();

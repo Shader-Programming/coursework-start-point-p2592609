@@ -23,10 +23,13 @@ TestScene::TestScene(GLFWwindow* window, std::shared_ptr<InputHandler> H): Scene
 
 		m_textureViewer = std::make_shared<TextureViewer>();
 
-		m_emptyTexture = std::make_shared<Texture>(SCR_WIDTH, SCR_HEIGHT, 4);
+		m_emptyTexture = std::make_shared<Texture>(512, 512, 4);
 
 		m_textureCompute = std::make_shared<Shader>("..\\Shaders\\compute.glsl");
 
+		m_noiseCompute = std::make_shared<Shader>("..\\Shaders\\noiseCompute.glsl");
+
+		m_terrain->setHeightMap(m_emptyTexture);
 }
 
 
@@ -97,7 +100,9 @@ void TestScene::render()
 
 		m_floorShader->setBool("cdm", guiVals.cdm);
 
-		m_terrain->setHeightMap(m_floorShader);
+		m_terrain->setHeightMapUniform(m_floorShader);
+
+		
 
 		//draw
 		glBindVertexArray(m_terrain->getVAO());
@@ -106,7 +111,17 @@ void TestScene::render()
 	}
 	else
 	{
-		m_textureCompute->use();
+		//m_textureCompute->use();
+		//m_textureCompute->setInt("inputImg", m_terrain->getHeightMap());
+		//m_textureCompute->setVec3("col", glm::vec3(1.0, 0.0, 1.0));
+
+		m_noiseCompute->use();
+		m_noiseCompute->setInt("octaves", guiVals.octaves);
+		m_noiseCompute->setInt("noiseFMB", guiVals.noiseType);
+		m_noiseCompute->setFloat("frequency", guiVals.frequency);
+		m_noiseCompute->setFloat("amplitude", guiVals.amplitude);
+		m_noiseCompute->setFloat("lacunarity", guiVals.lacunarity);
+		m_noiseCompute->setFloat("persistence", guiVals.persistence);
 		glBindImageTexture(0, m_emptyTexture->getID(), 0, GL_FALSE, 0, GL_WRITE_ONLY, GL_RGBA32F);
 		glDispatchCompute((GLuint)16, (GLuint)32, 1);
 		glMemoryBarrier(GL_SHADER_IMAGE_ACCESS_BARRIER_BIT);

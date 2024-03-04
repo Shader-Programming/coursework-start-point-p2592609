@@ -42,7 +42,7 @@ void Texture::createTexture(unsigned int width, unsigned int height, unsigned in
 
 	(GL_TEXTURE0);//activate texture unit
 	glBindTexture(GL_TEXTURE_2D, m_id);// bind texture object
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, format, GL_UNSIGNED_BYTE, data); // send data
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA32F, width, height, 0, format, GL_UNSIGNED_BYTE, data); // send data
 	std::cout << format << " " << channels << std::endl;
 	glGenerateMipmap;
 	// set texture object parameters

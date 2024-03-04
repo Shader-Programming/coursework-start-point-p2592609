@@ -194,6 +194,7 @@
     <ClInclude Include="include\Mesh.h" />
     <ClInclude Include="include\Model.h" />
     <ClInclude Include="include\ModelLoader.h" />
+    <ClInclude Include="include\ParticleSystem.h" />
     <ClInclude Include="include\Properties.h" />
     <ClInclude Include="include\Scene.h" />
     <ClInclude Include="include\Shader.h" />

@@ -41,6 +41,12 @@ void Gui::drawGui()
     ImGui::ColorEdit3("Light Col", (float*)&guiVals.lightCol);
     ImGui::ColorEdit3("Floor Col", (float*)&guiVals.floorCol);
     ImGui::DragFloat("Height Map Scale", &guiVals.hmScale);
+    ImGui::SliderFloat("Frequency", &guiVals.frequency, 0.f, 10.f);
+    ImGui::SliderFloat("Amplitude", &guiVals.amplitude, 0.f, 10.f);
+    ImGui::SliderFloat("Lacunarity", &guiVals.lacunarity, 0.f, 10.f);
+    ImGui::SliderFloat("Persistence", &guiVals.persistence, 0.f, 10.f);
+    ImGui::SliderInt("Octaves", &guiVals.octaves, 0.f, 10.f);
+    ImGui::SliderInt("NoiseType", &guiVals.noiseType, 0.f, 2.f);
     ImGui::ShowDemoWindow();
     ImGui::End();
     ImGui::Render();
