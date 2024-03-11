@@ -1,2 +1,15 @@
 ﻿C:\Program Files\Microsoft Visual Studio\2022\Enterprise\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(1116,5): warning MSB8027: Two or more files with the name of imgui_impl_opengl3.cpp will produce outputs to the same location. This can lead to an incorrect build result.  The files involved are ..\Dependancies\include\ImGui\imgui_impl_opengl3.cpp, src\IMgui\imgui_impl_opengl3.cpp.
-  Application_Clean.vcxproj -> H:\Documents\Advance Shaders\x64\Debug\Application_Clean.exe
+  Billboard.cpp
+H:\Documents\Advance Shaders\Application_Clean\include\InputHandler.h(67,30): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+H:\Documents\Advance Shaders\Application_Clean\include\InputHandler.h(68,31): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+  EntryPoint.cpp
+H:\Documents\Advance Shaders\Application_Clean\include\InputHandler.h(67,30): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+H:\Documents\Advance Shaders\Application_Clean\include\InputHandler.h(68,31): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+H:\Documents\Advance Shaders\Application_Clean\src\EntryPoint.cpp(12,13): warning C4326: return type of 'main' should be 'int' instead of 'void'
+  ParticleSystem.cpp
+H:\Documents\Advance Shaders\Dependancies\include\glad\glad.h(27,1): fatal  error C1189: #error:  OpenGL header already included, remove this include, glad already provides it
+  TestScene.cpp
+H:\Documents\Advance Shaders\Application_Clean\include\InputHandler.h(67,30): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+H:\Documents\Advance Shaders\Application_Clean\include\InputHandler.h(68,31): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+H:\Documents\Advance Shaders\Application_Clean\src\TestScene.cpp(86,40): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+  Generating Code...

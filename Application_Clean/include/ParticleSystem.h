@@ -4,6 +4,12 @@
 #include "Texture.h"
 #include "Shader.h"
 
+struct Particle
+{
+	glm::vec4 position;
+	glm::vec4 direction;
+};
+
 class ParticleSystem {
 public:
 	ParticleSystem();
@@ -24,3 +30,4 @@ private:
 
 	void initialise();
 };
+
