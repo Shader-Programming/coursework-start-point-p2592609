@@ -8,6 +8,7 @@
 #include "ModelLoader.h"
 #include "Billboard.h"
 #include "TextureViewer.h"
+#include "ParticleSystem.h"
 
 
 
@@ -43,5 +44,6 @@ private:
 	std::shared_ptr<Shader> m_textureCompute;
 	std::shared_ptr<Shader> m_noiseCompute;
 	
+	std::shared_ptr<ParticleSystem> m_particleSystem;
 
 };

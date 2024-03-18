@@ -1,10 +1,20 @@
-#version 330 core
-layout(location = 0) in vec4 aPos;
+#version 430 core
 
-out float age
+
+struct Particle {
+	vec4 position;
+	vec4 direction;
+};
+
+layout(std430, binding = 0) buffer particles
+{
+	Particle part[];
+};
+
+out float age;
 
 void main()
 {
-	gl_Position = vec4(aPos.xyz, 1.0);
-	age = aPos.w;
+	gl_Position = vec4(part[gl_VertexID].position.xyz, 1.0f);
+	age = part[gl_VertexID].position.w;
 }

@@ -30,6 +30,8 @@ TestScene::TestScene(GLFWwindow* window, std::shared_ptr<InputHandler> H): Scene
 		m_noiseCompute = std::make_shared<Shader>("..\\Shaders\\noiseCompute.glsl");
 
 		m_terrain->setHeightMap(m_emptyTexture);
+
+		m_particleSystem = std::make_shared<ParticleSystem>(glm::vec3(0.f, 10.f, 0.f), 5, m_emptyTexture, 3);
 }
 
 
@@ -108,6 +110,8 @@ void TestScene::render()
 		glBindVertexArray(m_terrain->getVAO());
 		//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 		glDrawArrays(GL_PATCHES, 0, m_terrain->getSize());
+
+		m_particleSystem->render(m_camera);
 	}
 	else
 	{

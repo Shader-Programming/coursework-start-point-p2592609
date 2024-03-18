@@ -4,7 +4,7 @@ layout(triangle_strip, max_vertices = 4) out;
 out vec2 uv;
 out float ageGS;
 
-in float age;
+in float age[];
 
 uniform mat4 projection;
 uniform mat4 view;
@@ -14,7 +14,7 @@ uniform int scale;
 
 void main()
 {
-	ageGS = age;
+	ageGS = age[0];
 	mat4 VP = projection * view;
 	vec3 pos = gl_in[0].gl_Position.xyz;
 	vec3 toCamera = normalize(cameraPos - pos);

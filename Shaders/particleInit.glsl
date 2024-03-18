@@ -19,20 +19,23 @@ uniform float seed;
 vec3 randomUnitVector(float seed);
 float randInRange(float seed);
 
+float PI = 3.14;
+
 void main()
 {
-    int partID = gl_GlobalInvocationID.x;
+    unsigned int partID = gl_GlobalInvocationID.x;
     part[partID].position.xyz = origin;
     part[partID].direction.xyz = randomUnitVector(seed);
     part[partID].position.w = randInRange(seed);
+
 
 }
 
 // generate a random vector on unit sphere
 vec3 randomUnitVector(float seed) {
 
-    float theta = randInRange01(seed) * 2.0 * PI; // Angle around the y-axis
-    float phi = acos(2.0 * randInRange01(seed + 1.0) - 1.0); // Angle from the positive y-axis 
+    float theta = randInRange(seed) * 2.0 * PI; // Angle around the y-axis
+    float phi = acos(2.0 * randInRange(seed + 1.0) - 1.0); // Angle from the positive y-axis 
 
     // Convert spherical coordinates to Cartesian coordinates
     float x = sin(phi) * cos(theta);

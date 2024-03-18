@@ -1,10 +1,14 @@
 #include "ParticleSystem.h"
 
-ParticleSystem::ParticleSystem()
+ParticleSystem::ParticleSystem(glm::vec3 location, unsigned int numParts, std::shared_ptr<Texture> texture, unsigned int scale)
 {
 	m_particleDrawer = new Shader("..\\shaders\\particlesBillVert.glsl", "..\\shaders\\particlesBillFrag.glsl", "..\\shaders\\particlesBillGeo.glsl");
 	m_computeInitialise = new Shader("..\\Shaders\\particleInit.glsl");
-	m_computeUpdate = new Shader("..\\Shaders\\particleUpdate.glsl");
+	/*m_computeUpdate = new Shader("..\\Shaders\\particleUpdate.glsl");*/
+	m_emmiterLocation = location; 
+	m_numParts = numParts;
+	billTex = texture;
+	billScale = scale;
 	initialise();
 }
 
@@ -23,12 +27,12 @@ void ParticleSystem::render(std::shared_ptr<Camera> cam)
 	m_particleDrawer->setMat4("view", cam->getViewMatrix());
 	m_particleDrawer->setMat4("model", glm::mat4(1.f));
 	m_particleDrawer->setVec3("cameraPos", cam->getPosition());
-	m_particleDrawer->setInt("billboard", 0);
+	m_particleDrawer->setInt("image", 0);
 	m_particleDrawer->setInt("scale", billScale);
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, billTex->getID());
 	glBindVertexArray(m_VAO);
-	glDrawArrays(GL_POINTS, 0, 5);
+	glDrawArrays(GL_POINTS, 0, m_numParts);
 }
 
 void ParticleSystem::initialise()
@@ -50,4 +54,6 @@ void ParticleSystem::initialise()
 	m_computeInitialise->setFloat("seed", glfwGetTime());
 	glDispatchCompute(m_numParts, 1, 1);
 	glMemoryBarrier(GL_SHADER_STORAGE_BARRIER_BIT);
+
+
 }
