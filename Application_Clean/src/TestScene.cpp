@@ -48,6 +48,7 @@ void TestScene::update(float dt)
 	m_vampire->rotate(dt, glm::vec3(0.0f, 1.0f, 0.0f));
 	m_gui->newGuiFrame();
 	m_gui->drawGui();
+	m_particleSystem->update(guiVals);
 }
 
 

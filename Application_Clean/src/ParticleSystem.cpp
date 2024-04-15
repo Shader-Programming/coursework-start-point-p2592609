@@ -4,7 +4,7 @@ ParticleSystem::ParticleSystem(glm::vec3 location, unsigned int numParts, std::s
 {
 	m_particleDrawer = new Shader("..\\shaders\\particlesBillVert.glsl", "..\\shaders\\particlesBillFrag.glsl", "..\\shaders\\particlesBillGeo.glsl");
 	m_computeInitialise = new Shader("..\\Shaders\\particleInit.glsl");
-	/*m_computeUpdate = new Shader("..\\Shaders\\particleUpdate.glsl");*/
+	m_computeUpdate = new Shader("..\\Shaders\\particlesUpdate.glsl");
 	m_emmiterLocation = location; 
 	m_numParts = numParts;
 	billTex = texture;
@@ -18,6 +18,19 @@ ParticleSystem::~ParticleSystem()
 
 void ParticleSystem::update(GuiVals& guiVals)
 {
+
+	float currentTime = glfwGetTime();
+	float deltaTime = currentTime - lastTime;
+	m_computeUpdate->use();
+	m_computeUpdate->setVec3("origin", m_emmiterLocation);
+	m_computeUpdate->setFloat("seed", glfwGetTime());
+	m_computeUpdate->setFloat("DT", deltaTime);
+	m_computeUpdate->setFloat("acceleration", guiVals.acceleration);
+	m_computeUpdate->setFloat("speed",guiVals.speed);
+
+	glDispatchCompute(m_numParts, 1, 1);
+	glMemoryBarrier(GL_SHADER_STORAGE_BARRIER_BIT);
+	lastTime = currentTime;
 }
 
 void ParticleSystem::render(std::shared_ptr<Camera> cam)

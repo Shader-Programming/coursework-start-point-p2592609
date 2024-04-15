@@ -2,5 +2,8 @@
   ParticleSystem.cpp
 H:\Documents\Advance Shaders\Application_Clean\include\InputHandler.h(67,30): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
 H:\Documents\Advance Shaders\Application_Clean\include\InputHandler.h(68,31): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-H:\Documents\Advance Shaders\Application_Clean\src\ParticleSystem.cpp(54,51): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+H:\Documents\Advance Shaders\Application_Clean\src\ParticleSystem.cpp(22,20): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+H:\Documents\Advance Shaders\Application_Clean\src\ParticleSystem.cpp(23,18): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+H:\Documents\Advance Shaders\Application_Clean\src\ParticleSystem.cpp(26,47): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+H:\Documents\Advance Shaders\Application_Clean\src\ParticleSystem.cpp(67,51): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
   Application_Clean.vcxproj -> H:\Documents\Advance Shaders\x64\Debug\Application_Clean.exe

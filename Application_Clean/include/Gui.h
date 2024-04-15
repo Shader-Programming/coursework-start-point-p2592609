@@ -21,6 +21,8 @@ struct GuiVals {
 	float lacunarity = 2.f;
 	int octaves = 3;
 	int noiseType = 0;
+	float acceleration = 2.f;
+	float speed = 2.f;
 	
 };
 

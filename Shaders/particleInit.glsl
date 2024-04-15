@@ -6,7 +6,7 @@ struct Particle {
 	vec4 direction;
 };
 
-layout(local_size_x = 10, local_size_y = 1) in;
+layout(local_size_x = 1, local_size_y = 1) in;
 
 layout(std430, binding = 0) buffer particles
 {
@@ -19,14 +19,15 @@ uniform float seed;
 vec3 randomUnitVector(float seed);
 float randInRange(float seed);
 
-float PI = 3.14;
+float PI = 3.14159265;
 
 void main()
 {
+
     unsigned int partID = gl_GlobalInvocationID.x;
     part[partID].position.xyz = origin;
     part[partID].direction.xyz = randomUnitVector(seed);
-    part[partID].position.w = randInRange(seed);
+    part[partID].position.w = 10/*randInRange(seed) * 10*/;
 
 
 }
