@@ -35,6 +35,8 @@ void ParticleSystem::update(GuiVals& guiVals)
 
 void ParticleSystem::render(std::shared_ptr<Camera> cam)
 {
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	m_particleDrawer->use();
 	m_particleDrawer->setMat4("projection", cam->getProjectionMatrix());
 	m_particleDrawer->setMat4("view", cam->getViewMatrix());

@@ -31,7 +31,9 @@ TestScene::TestScene(GLFWwindow* window, std::shared_ptr<InputHandler> H): Scene
 
 		m_terrain->setHeightMap(m_emptyTexture);
 
-		m_particleSystem = std::make_shared<ParticleSystem>(glm::vec3(0.f, 10.f, 0.f), 5, m_emptyTexture, 3);
+		m_flameTexture = std::make_shared<Texture>("..\\Resources\\flame.png");
+
+		m_particleSystem = std::make_shared<ParticleSystem>(glm::vec3(0.f, 10.f, 0.f), 5000, m_flameTexture, 2);
 }
 
 

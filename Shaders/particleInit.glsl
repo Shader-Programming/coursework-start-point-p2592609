@@ -26,8 +26,8 @@ void main()
 
     unsigned int partID = gl_GlobalInvocationID.x;
     part[partID].position.xyz = origin;
-    part[partID].direction.xyz = randomUnitVector(seed);
-    part[partID].position.w = 10/*randInRange(seed) * 10*/;
+    part[partID].direction.xyz = randomUnitVector(seed * gl_GlobalInvocationID.x);
+    part[partID].position.w = randInRange(seed * gl_GlobalInvocationID.x) * 100;
 
 
 }

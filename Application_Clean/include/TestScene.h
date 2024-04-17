@@ -41,6 +41,7 @@ private:
 	std::shared_ptr<TextureViewer> m_textureViewer;
 
 	std::shared_ptr<Texture> m_emptyTexture;
+	std::shared_ptr<Texture> m_flameTexture;
 	std::shared_ptr<Shader> m_textureCompute;
 	std::shared_ptr<Shader> m_noiseCompute;
 	

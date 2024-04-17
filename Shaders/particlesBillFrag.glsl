@@ -11,10 +11,17 @@ vec3  flameCol = vec3(.866, .345, .133);
 void main()
 {
 	vec3 col = texture(image,uv).rgb;
-	//float alpha = ageGS / 300;
+	float alpha = ageGS / 3000;
 	//float mixer = ageGS / 300;
-	//if (col < 0.01f)
+	//if (col < .01f)
 	//	discard;
 	//flameCol = mix(flameCol, vec3(1.0), mixer);
-	FragColor = vec4(col, 1);
+
+	if (col.r < .866 &&
+		col.g < .345 &&
+		col.b < .133)
+	{
+		discard;
+	}
+	FragColor = vec4(col, alpha);
 }

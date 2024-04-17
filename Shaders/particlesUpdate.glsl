@@ -28,13 +28,13 @@ vec3 updatePosition(vec3 currentPos, vec3 currentVel);
 void main()
 {
     unsigned int partID = gl_GlobalInvocationID.x;
-    part[partID].position.w -= .01;
+    part[partID].position.w -= 1;
     if (part[partID].position.w < 0)
     {
 
         part[partID].position.xyz = origin;
-        part[partID].direction.xyz = randomUnitVector(seed);
-        part[partID].position.w = randInRange(seed);
+        part[partID].direction.xyz = randomUnitVector(seed * gl_GlobalInvocationID.x);
+        part[partID].position.w = randInRange(seed * gl_GlobalInvocationID.x) * 1000;
     }
     else
     {
