@@ -7,7 +7,7 @@ uniform float amplitude;
 uniform float persistence;
 uniform float lacunarity;
 uniform int octaves;
-uniform int noiseFBM;
+/*uniform*/ int noiseFBM = 2;
 
 
 float remap(float currValue, float  inMin, float inMax, float outMin, float outMax);
@@ -24,7 +24,7 @@ void main() {
 	float p = FBM(pc, octaves);
 	/*if (noiseFBM == 0)
 	{
-		p = FBM(pc, octaves);
+		p += FBM(pc, octaves);
 	}
 	else if (noiseFBM == 1)
 	{

@@ -15,6 +15,7 @@ uniform mat4 model;
 uniform sampler2D heightMap;
 uniform float hmScale;
 
+
 vec2 interpolate2D(vec2 v0, vec2 v1, vec2 v2);
 vec3 interpolate3D(vec3 v0, vec3 v1, vec3 v2);
 
@@ -23,7 +24,7 @@ void main()
 	tePosInWS = interpolate3D(tcPosInWS[0], tcPosInWS[1], tcPosInWS[2]);
 	teUV = interpolate2D(tcUV[0], tcUV[1], tcUV[2]);
 	float h = (texture(heightMap, teUV).r);
-	//h = h*2.0 - 1.0;
+	h = h*2.0 - 1.0;
 	tePosInWS.y = h * hmScale;
 	gl_Position = projection * view * model *vec4(tePosInWS, 1.0);
 

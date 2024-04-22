@@ -3,8 +3,8 @@
 
 FBOquad::FBOquad()
 {
-	m_colShader = std::make_shared<Shader>("..\\Shaders\\PostProcessingVertexShader.glsl", "..\\Shaders\\PostProcessingFragmentShader.glsl");
-	m_depthShader = std::make_shared<Shader>("..\\Shaders\\PostProcessingVertexShader.glsl", "..\\Shaders\\DepthFragmentShader.glsl");
+	m_colShader = std::make_shared<Shader>("..\\Shaders\\PostProcessingVert.glsl", "..\\Shaders\\PostProcessingFrag.glsl");
+	m_depthShader = std::make_shared<Shader>("..\\Shaders\\PostProcessingVert.glsl", "..\\Shaders\\DepthFrag.glsl");
 	makeVAO();
 }
 

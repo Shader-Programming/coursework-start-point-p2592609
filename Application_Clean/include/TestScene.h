@@ -9,6 +9,8 @@
 #include "Billboard.h"
 #include "TextureViewer.h"
 #include "ParticleSystem.h"
+#include "WaterQuad.h"
+#include "FrameBuffer.h"
 
 
 
@@ -46,5 +48,11 @@ private:
 	std::shared_ptr<Shader> m_noiseCompute;
 	
 	std::shared_ptr<ParticleSystem> m_particleSystem;
+
+	std::shared_ptr<WaterQuad> m_waterQuad;
+	std::shared_ptr<Shader> m_flatColShader;
+	std::shared_ptr<FrameBuffer> FBOrefraction;
+
+
 
 };

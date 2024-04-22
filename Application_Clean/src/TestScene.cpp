@@ -34,6 +34,12 @@ TestScene::TestScene(GLFWwindow* window, std::shared_ptr<InputHandler> H): Scene
 		m_flameTexture = std::make_shared<Texture>("..\\Resources\\flame.png");
 
 		m_particleSystem = std::make_shared<ParticleSystem>(glm::vec3(0.f, 10.f, 0.f), 5000, m_flameTexture, 2);
+
+		m_waterQuad = std::make_shared<WaterQuad>();
+
+		m_flatColShader = std::make_shared<Shader>("..\\Shaders\\waterVert.glsl", "..\\Shaders\\waterFrag.glsl");
+
+		FBOrefraction = std::make_shared<FrameBuffer>(1, true);
 }
 
 
@@ -77,6 +83,8 @@ void TestScene::render()
 	
 	if (!guiVals.textureView)
 	{
+		
+
 		m_skyBox->renderSkyBox(m_camera->getProjectionMatrix() * glm::mat4(glm::mat3(m_camera->getViewMatrix())));
 
 		//model
@@ -90,9 +98,16 @@ void TestScene::render()
 
 		m_billboard->render(m_camera, guiVals.scale);
 
+		glEnable(GL_CLIP_DISTANCE0);
+
+		FBOrefraction->bind();
+		FBOrefraction->clear();
+		m_flatColShader->use();
+		m_flatColShader->setVec4("plane", glm::vec4(0, -1, 0, 1.f));
+
 		//floor
 		// Scene Data - Lights, Camera
-		m_floorShader->use();
+		//m_floorShader->use();
 		m_floorShader->setMat4("projection", m_camera->getProjectionMatrix());
 		m_floorShader->setMat4("view", m_camera->getViewMatrix());
 		m_floorShader->setMat4("model", glm::mat4(1.0f));
@@ -113,6 +128,19 @@ void TestScene::render()
 		glBindVertexArray(m_terrain->getVAO());
 		//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 		glDrawArrays(GL_PATCHES, 0, m_terrain->getSize());
+
+		FBOrefraction->bindDefault();
+		FBOrefraction->clear();
+
+		m_flatColShader->use();
+		m_flatColShader->setMat4("projection", m_camera->getProjectionMatrix());
+		m_flatColShader->setMat4("view", m_camera->getViewMatrix());
+		m_flatColShader->setInt("image", 0);
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, FBOrefraction->getColourAttachment());
+
+		glBindVertexArray(m_waterQuad->getVAO());
+		glDrawArrays(GL_TRIANGLES,0, m_waterQuad->getSize());
 
 		m_particleSystem->render(m_camera);
 	}

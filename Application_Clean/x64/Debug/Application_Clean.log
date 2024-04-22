@@ -1,9 +1,10 @@
-﻿C:\Program Files\Microsoft Visual Studio\2022\Enterprise\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(1116,5): warning MSB8027: Two or more files with the name of imgui_impl_opengl3.cpp will produce outputs to the same location. This can lead to an incorrect build result.  The files involved are ..\Dependancies\include\ImGui\imgui_impl_opengl3.cpp, src\IMgui\imgui_impl_opengl3.cpp.
-  ParticleSystem.cpp
+﻿C:\Program Files\Microsoft Visual Studio\2022\Enterprise\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(1119,5): warning MSB8027: Two or more files with the name of imgui_impl_opengl3.cpp will produce outputs to the same location. This can lead to an incorrect build result.  The files involved are ..\Dependancies\include\ImGui\imgui_impl_opengl3.cpp, src\IMgui\imgui_impl_opengl3.cpp.
+  TestScene.cpp
 H:\Documents\Advance Shaders\Application_Clean\include\InputHandler.h(67,30): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+  (compiling source file 'src/TestScene.cpp')
+  
 H:\Documents\Advance Shaders\Application_Clean\include\InputHandler.h(68,31): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-H:\Documents\Advance Shaders\Application_Clean\src\ParticleSystem.cpp(22,20): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-H:\Documents\Advance Shaders\Application_Clean\src\ParticleSystem.cpp(23,18): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-H:\Documents\Advance Shaders\Application_Clean\src\ParticleSystem.cpp(26,47): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-H:\Documents\Advance Shaders\Application_Clean\src\ParticleSystem.cpp(69,51): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+  (compiling source file 'src/TestScene.cpp')
+  
+H:\Documents\Advance Shaders\Application_Clean\src\TestScene.cpp(99,40): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
   Application_Clean.vcxproj -> H:\Documents\Advance Shaders\x64\Debug\Application_Clean.exe
