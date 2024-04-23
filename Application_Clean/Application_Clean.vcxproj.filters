@@ -203,5 +203,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="imgui.ini" />
+    <None Include="assimp.dll" />
+    <None Include="assimp-vc140-mt.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="assimp.lib" />
   </ItemGroup>
 </Project>

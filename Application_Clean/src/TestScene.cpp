@@ -41,6 +41,9 @@ TestScene::TestScene(GLFWwindow* window, std::shared_ptr<InputHandler> H): Scene
 
 		FBOrefraction = std::make_shared<FrameBuffer>(1, true);
 		FBOreflection = std::make_shared<FrameBuffer>(1, true);
+
+		m_dudvMap = std::make_shared<Texture>("..\\Resources\\waterDUDV.png");
+		m_waterNormalMap = std::make_shared<Texture>("..\\Resources\\waterNormals.png");
 }
 
 
@@ -140,12 +143,22 @@ void TestScene::render()
 		m_flatColShader->setMat4("view", m_camera->getViewMatrix());
 		m_flatColShader->setFloat("screenW", SCR_WIDTH);
 		m_flatColShader->setFloat("screenH",SCR_HEIGHT);
+		m_flatColShader->setVec3("UP", m_camera->getUp());
+		m_flatColShader->setVec3("viewPos", m_camera->getPosition());
+		m_flatColShader->setFloat("time", glfwGetTime());
+		m_flatColShader->setFloat("rate", guiVals.rate);
 		m_flatColShader->setInt("refraction", 0);
 		m_flatColShader->setInt("reflection", 1);
+		m_flatColShader->setInt("dudvMap", 2);
+		m_flatColShader->setInt("normalMap", 3);
 		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, FBOrefraction->getColourAttachment());
 		glActiveTexture(GL_TEXTURE1);
 		glBindTexture(GL_TEXTURE_2D, FBOreflection->getColourAttachment());
+		glActiveTexture(GL_TEXTURE2);
+		glBindTexture(GL_TEXTURE_2D, m_dudvMap->getID());
+		glActiveTexture(GL_TEXTURE3);
+		glBindTexture(GL_TEXTURE_2D, m_waterNormalMap->getID());
 
 		glBindVertexArray(m_waterQuad->getVAO());
 		glDrawArrays(GL_TRIANGLES,0, m_waterQuad->getSize());

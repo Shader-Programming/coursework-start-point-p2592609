@@ -53,7 +53,8 @@ private:
 	std::shared_ptr<Shader> m_flatColShader;
 	std::shared_ptr<FrameBuffer> FBOrefraction;
 	std::shared_ptr<FrameBuffer> FBOreflection;
-
+	std::shared_ptr<Texture> m_dudvMap;
+	std::shared_ptr<Texture> m_waterNormalMap;
 
 
 };

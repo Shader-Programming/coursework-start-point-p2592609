@@ -23,6 +23,7 @@ struct GuiVals {
 	int noiseType = 0;
 	float acceleration = 2.f;
 	float speed = 2.f;
+	float rate = 0.1f;
 	
 };
 

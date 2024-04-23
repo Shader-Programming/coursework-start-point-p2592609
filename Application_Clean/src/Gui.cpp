@@ -49,6 +49,7 @@ void Gui::drawGui()
     ImGui::SliderInt("NoiseType", &guiVals.noiseType, 0.f, 2.f);
     ImGui::SliderFloat("Acceleration", &guiVals.acceleration, 0.f, 100.f);
     ImGui::SliderFloat("Speed", &guiVals.speed, 0.f, 100.f);
+    ImGui::SliderFloat("rate", &guiVals.rate, 0.f, 2.f);
     ImGui::ShowDemoWindow();
     ImGui::End();
     ImGui::Render();
