@@ -49,6 +49,7 @@ public:
 	virtual glm::vec3& getFront() { return  m_front; }
 	virtual glm::vec3& getUp() { return  m_up; }
 	virtual glm::vec3& getRight() { return  m_right; }
+	virtual void inversePitch() { m_pitch * -1.f; }
 
 	// Control
 	virtual void update(float dt) {};

@@ -20,6 +20,7 @@ public:
 	glm::mat4 getProjectionMatrix()                                    override;
 	void update(float dt)                                              override;
 	void attachHandler(GLFWwindow* W, std::shared_ptr<InputHandler> H) override;
+	void updateCameraVectors();
 
 private:
 
@@ -30,7 +31,7 @@ private:
 	GLFWwindow* m_window;
 	std::shared_ptr<InputHandler> m_handler;
 
-	void updateCameraVectors();
+
 	void zoom(float offsetY);
 	void look(float offsetX, float offsetY);  // mouse scroll
 

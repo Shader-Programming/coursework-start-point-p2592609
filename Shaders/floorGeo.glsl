@@ -12,6 +12,7 @@ out vec3 gNormal;
 out vec3 gPosInWS;
 out vec3 cdmNorm;
 
+uniform vec4 plane;
 
 vec3 getSurfaceNormal();
 
@@ -20,6 +21,7 @@ void main()
 	
 	for (int i = 0; i < 3; i++)
 	{
+		gl_ClipDistance[0] = dot(vec4(tePosInWS[i], 1.0), plane);
 		gl_Position = gl_in[i].gl_Position;
 		gUV = teUV[i];
 		gNormal = getSurfaceNormal();

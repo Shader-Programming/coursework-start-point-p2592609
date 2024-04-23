@@ -26,6 +26,7 @@ void main()
 	float h = (texture(heightMap, teUV).r);
 	h = h*2.0 - 1.0;
 	tePosInWS.y = h * hmScale;
+
 	gl_Position = projection * view * model *vec4(tePosInWS, 1.0);
 
 	float right = (textureOffset(heightMap, teUV, ivec2(5, 0)).r) * hmScale;
@@ -36,6 +37,8 @@ void main()
 	float lr = left - right;
 	float du = up - down;
 	teNorm = normalize(vec3(lr, 2.0, du));
+
+	teUV *= 10.0f;
 }
 
 vec2 interpolate2D(vec2 v0, vec2 v1, vec2 v2)

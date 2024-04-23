@@ -52,6 +52,7 @@ private:
 	std::shared_ptr<WaterQuad> m_waterQuad;
 	std::shared_ptr<Shader> m_flatColShader;
 	std::shared_ptr<FrameBuffer> FBOrefraction;
+	std::shared_ptr<FrameBuffer> FBOreflection;
 
 
 

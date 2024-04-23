@@ -7,12 +7,12 @@ out vec3 PosInWS;
 
 uniform mat4 view;
 uniform mat4 projection;
-uniform vec4 plane;
+//uniform vec4 plane;
 
 void main()
 {
     PosInWS = aPos;
-    gl_ClipDistance[0] = dot(vec4(PosInWS, 1.0), plane);
+    //gl_ClipDistance[0] = dot(vec4(PosInWS, 1.0), plane);
     gl_Position = projection * view * vec4(aPos, 1.f);
   
     UV = aUV;

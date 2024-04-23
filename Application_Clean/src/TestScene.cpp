@@ -40,6 +40,7 @@ TestScene::TestScene(GLFWwindow* window, std::shared_ptr<InputHandler> H): Scene
 		m_flatColShader = std::make_shared<Shader>("..\\Shaders\\waterVert.glsl", "..\\Shaders\\waterFrag.glsl");
 
 		FBOrefraction = std::make_shared<FrameBuffer>(1, true);
+		FBOreflection = std::make_shared<FrameBuffer>(1, true);
 }
 
 
@@ -83,31 +84,15 @@ void TestScene::render()
 	
 	if (!guiVals.textureView)
 	{
-		
-
 		m_skyBox->renderSkyBox(m_camera->getProjectionMatrix() * glm::mat4(glm::mat3(m_camera->getViewMatrix())));
-
-		//model
-		m_modelShader->use();
-		m_modelShader->setMat4("Projection", m_camera->getProjectionMatrix());
-		m_modelShader->setMat4("View", m_camera->getViewMatrix());
-		m_modelShader->setVec3("viewPos", m_camera->getPosition());
-		m_modelShader->setVec3("lightDirection", guiVals.lightDir);
-		m_modelShader->setVec3("lightColour", guiVals.lightCol);
-		m_vampire->renderModel(m_modelShader);
-
-		m_billboard->render(m_camera, guiVals.scale);
 
 		glEnable(GL_CLIP_DISTANCE0);
 
-		FBOrefraction->bind();
-		FBOrefraction->clear();
-		m_flatColShader->use();
-		m_flatColShader->setVec4("plane", glm::vec4(0, -1, 0, 1.f));
 
-		//floor
-		// Scene Data - Lights, Camera
-		//m_floorShader->use();
+		FBOrefraction->bind();
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		m_floorShader->use();
+		m_floorShader->setVec4("plane", glm::vec4(0, -1, 0, 1.f));
 		m_floorShader->setMat4("projection", m_camera->getProjectionMatrix());
 		m_floorShader->setMat4("view", m_camera->getViewMatrix());
 		m_floorShader->setMat4("model", glm::mat4(1.0f));
@@ -122,25 +107,81 @@ void TestScene::render()
 
 		m_terrain->setHeightMapUniform(m_floorShader);
 
+		glBindVertexArray(m_terrain->getVAO());
+		glDrawArrays(GL_PATCHES, 0, m_terrain->getSize());
+	
+
+		FBOrefraction->bindDefault();
+		FBOrefraction->clear();
+
+		FBOreflection->bind();
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+		float dist = 2 * (m_camera->getPosition().y - 1.f);
+		m_camera->getPosition().y -= dist;
+		m_camera->inversePitch();
+		m_camera->updateCameraVectors();
+		m_floorShader->use();
+		m_floorShader->setVec4("plane", glm::vec4(0, 1, 0, -1.f));
+		glBindVertexArray(m_terrain->getVAO());
+		glDrawArrays(GL_PATCHES, 0, m_terrain->getSize());
 		
+		m_camera->getPosition().y += dist;
+		m_camera->inversePitch();
+		m_camera->updateCameraVectors();
+
+		FBOreflection->bindDefault();
+		FBOreflection->clear();
+
+		glDisable(GL_CLIP_DISTANCE0);
+
+		m_flatColShader->use();
+		m_flatColShader->setMat4("projection", m_camera->getProjectionMatrix());
+		m_flatColShader->setMat4("view", m_camera->getViewMatrix());
+		m_flatColShader->setFloat("screenW", SCR_WIDTH);
+		m_flatColShader->setFloat("screenH",SCR_HEIGHT);
+		m_flatColShader->setInt("refraction", 0);
+		m_flatColShader->setInt("reflection", 1);
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, FBOrefraction->getColourAttachment());
+		glActiveTexture(GL_TEXTURE1);
+		glBindTexture(GL_TEXTURE_2D, FBOreflection->getColourAttachment());
+
+		glBindVertexArray(m_waterQuad->getVAO());
+		glDrawArrays(GL_TRIANGLES,0, m_waterQuad->getSize());
+
+		//
+
+		//model
+		m_modelShader->use();
+		m_modelShader->setMat4("Projection", m_camera->getProjectionMatrix());
+		m_modelShader->setMat4("View", m_camera->getViewMatrix());
+		m_modelShader->setVec3("viewPos", m_camera->getPosition());
+		m_modelShader->setVec3("lightDirection", guiVals.lightDir);
+		m_modelShader->setVec3("lightColour", guiVals.lightCol);
+		m_vampire->renderModel(m_modelShader);
+
+		m_billboard->render(m_camera, guiVals.scale);
+
+		m_floorShader->use();
+		m_floorShader->setMat4("projection", m_camera->getProjectionMatrix());
+		m_floorShader->setMat4("view", m_camera->getViewMatrix());
+		m_floorShader->setMat4("model", glm::mat4(1.0f));
+		m_floorShader->setVec3("viewPos", m_camera->getPosition());
+		m_floorShader->setFloat("hmScale", guiVals.hmScale);
+		//
+		m_floorShader->setVec3("floorCol", guiVals.floorCol);
+		m_floorShader->setVec3("lightDirection", guiVals.lightDir);
+		m_floorShader->setVec3("lightColour", guiVals.lightCol);
+
+		m_floorShader->setBool("cdm", guiVals.cdm);
+
+		m_terrain->setHeightMapUniform(m_floorShader);
 
 		//draw
 		glBindVertexArray(m_terrain->getVAO());
 		//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 		glDrawArrays(GL_PATCHES, 0, m_terrain->getSize());
-
-		FBOrefraction->bindDefault();
-		FBOrefraction->clear();
-
-		m_flatColShader->use();
-		m_flatColShader->setMat4("projection", m_camera->getProjectionMatrix());
-		m_flatColShader->setMat4("view", m_camera->getViewMatrix());
-		m_flatColShader->setInt("image", 0);
-		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_2D, FBOrefraction->getColourAttachment());
-
-		glBindVertexArray(m_waterQuad->getVAO());
-		glDrawArrays(GL_TRIANGLES,0, m_waterQuad->getSize());
 
 		m_particleSystem->render(m_camera);
 	}

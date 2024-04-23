@@ -50,4 +50,6 @@ float GetTessLevel(float Distance0, float Distance1)
 	{
 		return 3.f;
 	}
+	/*float result = -AvgDistance * .5 + 50;*/
+
 }
